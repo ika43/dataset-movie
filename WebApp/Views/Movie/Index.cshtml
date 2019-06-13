@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WebApp.Models.MovieViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Movies</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Runtime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImdbRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Released)
+            </th>
+            <th>
+                Genres
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Runtime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Plot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImdbRating)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Released)
+            </td>
+            <td>
+                @foreach (var genre in item.Genres)
+                {
+                    //@Html.DisplayFor(genreModel => genre.Name);
+                    @Html.Raw(" " + genre.Name);
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

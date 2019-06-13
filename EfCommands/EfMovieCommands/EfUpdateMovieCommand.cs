@@ -25,7 +25,6 @@ namespace EfCommands.EfMovieCommands
             if (Context.Movies.Any(p => p.Title.ToLower() == request.Title.Trim().ToLower())) throw new EntityAlreadyExistException();
             movie.Title = request.Title;
             movie.Released = request.Released;
-            movie.ImdbRating = request.ImdbRating;
             movie.Plot = request.Plot;
             //var genreMovie = new List<MovieGenre>();
             //foreach (var genre in request.Genres)

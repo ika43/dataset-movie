@@ -1,0 +1,127 @@
+﻿@model Application.DTO.MovieDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@*<h1>Details</h1>
+
+    <div>
+        <h4>MovieViewModel</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Runtime)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Runtime)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Plot)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Plot)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ImdbRating)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ImdbRating)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Released)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.Released)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-8">
+
+            <!-- Title -->
+            <h1 class="mt-4">@Model.Title</h1>
+
+            <!-- Author -->
+            <p class="lead">
+                IMDB Rating: @Model.ImdbRating
+            </p>
+            <p>
+                Runtime: @Model.Runtime min
+            </p>
+            <hr>
+
+            <!-- Date/Time -->
+            <p>Released on @Html.DisplayFor(modelItem => Model.Released)</p>
+
+            <hr>
+
+            <!-- Preview Image -->
+            <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+
+            <hr>
+            <blockquote class="blockquote">
+                <p class="mb-0">@Model.Plot</p>
+            </blockquote>
+
+            <hr>
+
+            <!-- Comments Form -->
+            <div class="card my-4">
+                <h5 class="card-header">Leave a Comment:</h5>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            @foreach (var comment in Model.Comments)
+            {
+                <!-- Single Comment -->
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0">Posted by: @comment.User.Email</h5>
+                        @comment.Text
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            <div>
+                @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
