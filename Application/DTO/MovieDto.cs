@@ -22,6 +22,7 @@ namespace Application.DTO
         public int Runtime { get; set; }
         [Required]
         public string Plot { get; set; }
+        [Range(0,10)]
         public double ImdbRating { get; set; }
         public List<CommentDto> Comments { get; set; }
         [Required]

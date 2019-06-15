@@ -34,7 +34,7 @@ namespace EfCommands.EfMovieCommands
             {
                 genreMovie.Add(new MovieGenre
                 {
-                    GenreId = genre.Id,
+                    Genre = Context.Genres.Where(g=>g.Name.ToLower() == genre.Name.Trim().ToLower()).FirstOrDefault(),
                     MovieId = movie.Id
                 });
             }

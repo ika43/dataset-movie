@@ -6,6 +6,7 @@ using Application.DTO;
 using Application.Exceptions;
 using Application.ICommands.IUserCommands;
 using Application.SearchObj;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,7 @@ namespace WebAPI.Controllers
         }
         // GET: api/User
         [HttpGet]
+        [Authorize]
         public IActionResult Get([FromQuery] UserSearch obj)
         {
             try
@@ -45,6 +47,7 @@ namespace WebAPI.Controllers
         }
 
         // GET: api/User/5
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
@@ -84,6 +87,7 @@ namespace WebAPI.Controllers
 
         // PUT: api/User/5
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Put(string id, [FromBody] UserDto obj)
         {
             obj.Id = id;
@@ -108,6 +112,7 @@ namespace WebAPI.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(string id)
         {
             try

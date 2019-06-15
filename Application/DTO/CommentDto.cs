@@ -10,8 +10,8 @@ namespace Application.DTO
         [Required]
         public string Text { get; set; }
         [Required]
-        public  UserDto User { get; set; }
+        public  string User { get; set; }
         [Required]
-        public MovieDto Movie { get; set; }
+        public string Movie { get; set; }
     }
 }

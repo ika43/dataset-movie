@@ -35,15 +35,14 @@ namespace EfCommands.EfMovieCommands
                 Comments = p.Comments.Select(c => new CommentDto
                 {
                     Text = c.Text,
-                    User = new UserDto
-                    {
-                        Email = c.User.Email
-                    },
+                    User = c.User.Email,
                     CreatedAt = c.CreatedAt
                 }).ToList(),
                 Genres = p.MovieGenres.Select(g => new GenreDto
                 {
-                    Name = g.Genre.Name
+                    Name = g.Genre.Name,
+                    Id = g.Genre.Id,
+                    CreatedAt = g.Genre.CreatedAt
                 }).ToList()
             }).FirstOrDefault();
         }

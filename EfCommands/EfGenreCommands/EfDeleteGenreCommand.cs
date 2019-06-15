@@ -19,7 +19,7 @@ namespace EfCommands.EfGenreCommands
             {
                 throw new EntityNotFoundException();
             }
-            Context.Genres.Remove(genre);
+            genre.IsDeleted = true;
             Context.SaveChanges();
         }
     }

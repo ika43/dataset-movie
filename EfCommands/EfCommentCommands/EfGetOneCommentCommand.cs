@@ -27,14 +27,8 @@ namespace EfCommands.EfCommentCommands
                 {
                     Id = p.Id,
                     Text = p.Text,
-                    User = new UserDto
-                    {
-                        Email = p.User.Email
-                    },
-                    Movie = new MovieDto
-                    {
-                        Title = p.Movie.Title
-                    },
+                    User = p.User.Email,
+                    Movie = p.Movie.Title,
                     CreatedAt = p.CreatedAt
                 }).FirstOrDefault();
         }

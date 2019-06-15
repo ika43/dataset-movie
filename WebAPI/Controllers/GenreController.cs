@@ -6,11 +6,13 @@ using Application.DTO;
 using Application.Exceptions;
 using Application.ICommands.IGenreCommands;
 using Application.SearchObj;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GenreController : ControllerBase
@@ -30,7 +32,7 @@ namespace WebAPI.Controllers
         }
         // GET: api/Genre
         [HttpGet]
-        public IActionResult Get([FromQuery] GenreSearch obj)
+        public ActionResult<IEnumerable<GenreDto>> Get([FromQuery] GenreSearch obj)
         {
             try
             {

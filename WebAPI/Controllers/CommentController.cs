@@ -7,11 +7,13 @@ using Application.Exceptions;
 using Application.ICommands.ICommentCommands;
 using Application.SearchObj;
 using EfCommands.EfCommentCommands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase
@@ -65,8 +67,15 @@ namespace WebAPI.Controllers
 
         // POST: api/Comment
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] CreateCommentDto obj)
         {
+            var currentUser = HttpContext.User;
+            if(currentUser.HasClaim(c=>c.Type == "UserId"))
+            {
+                var userId = currentUser.Claims.FirstOrDefault(c => c.Type == "UserId").Value;
+                obj.UserId = userId;
+            }
             try
             {
                 _createComment.Execute(obj);

@@ -15,7 +15,7 @@ namespace EfCommands.EfGenreCommands
         public GenreDto Execute(string request)
         {
             var genre = Context.Genres.Find(request);
-            if(genre == null)
+            if(genre == null || genre.IsDeleted)
             {
                 throw new EntityNotFoundException();
             }
