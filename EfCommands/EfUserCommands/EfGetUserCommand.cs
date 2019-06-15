@@ -42,6 +42,11 @@ namespace EfCommands.EfUserCommands
             {
                 query = query.Where(p => p.IsDeleted == false);
             }
+            var TotalRecords = query.Count();
+            if (request.page.HasValue && request.PageSize.HasValue)
+            {
+                query = query.Skip((request.page ?? 0 - 1) * request.PageSize ?? 0).Take(request.PageSize ?? 0);
+            }
 
             return query.Select(p => new UserDto
             {
@@ -49,7 +54,8 @@ namespace EfCommands.EfUserCommands
                 Firstname = p.Firstname,
                 Lastname = p.Lastname,
                 Email = p.Email,
-                CreatedAt = p.CreatedAt
+                CreatedAt = p.CreatedAt,
+                TotalRecords = TotalRecords
             });
         }
     }

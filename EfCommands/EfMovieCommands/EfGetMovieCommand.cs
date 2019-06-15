@@ -40,6 +40,11 @@ namespace EfCommands.EfMovieCommands
             {
                 query = query.Where(p => p.ImdbRating <= request.MaxImdbRating);
             }
+            var TotalRecords = query.Count();
+            if (request.page.HasValue && request.PageSize.HasValue)
+            {
+                query = query.Skip((request.page ?? 0 - 1) * request.PageSize ?? 0).Take(request.PageSize ?? 0);
+            }
             return query.Select(p => new MovieDto
             {
                 Id = p.Id,
@@ -60,7 +65,8 @@ namespace EfCommands.EfMovieCommands
                     Name = g.Genre.Name,
                     Id = g.Genre.Id,
                     CreatedAt = g.Genre.CreatedAt
-                }).ToList()
+                }).ToList(),
+                TotalRecords = TotalRecords
             });
         }
     }

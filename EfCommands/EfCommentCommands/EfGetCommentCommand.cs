@@ -35,13 +35,19 @@ namespace EfCommands.EfCommentCommands
             {
                 query = query.Where(p => p.Movie.Title.ToLower().Contains(request.Movie.ToLower()));
             }
+            var TotalRecords = query.Count();
+            if (request.page.HasValue && request.PageSize.HasValue)
+            {
+                query = query.Skip((request.page ?? 0 - 1) * request.PageSize ?? 0).Take(request.PageSize ?? 0);
+            }
             return query.Select(p => new CommentDto
             {
                 Id = p.Id,
                 Text = p.Text,
                 User = p.User.Email,
                 Movie = p.Movie.Title,
-                CreatedAt = p.CreatedAt
+                CreatedAt = p.CreatedAt,
+                TotalRecords = TotalRecords
             });
         }
     }

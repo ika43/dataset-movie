@@ -2,6 +2,7 @@
 using Application.ICommands.IGenreCommands;
 using Application.SearchObj;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +31,18 @@ namespace EfCommands.EfGenreCommands
                 query = query.Where(p => p.IsDeleted == false);
             }
 
+            var TotalRecords = query.Count();
+            if (request.page.HasValue && request.PageSize.HasValue)
+            {
+                query = query.Skip((request.page ?? 0 - 1) * request.PageSize ?? 0).Take(request.PageSize ?? 0);
+            }
+
             return query.Select(g => new GenreDto
             {
                 Id = g.Id,
                 Name = g.Name,
-                CreatedAt = g.CreatedAt
+                CreatedAt = g.CreatedAt,
+                TotalRecords = TotalRecords
             });
         }
     }
